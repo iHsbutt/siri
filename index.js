@@ -15,8 +15,6 @@ bot.on('ready', () => {
     bot.user.setActivity('the impostor', ({type: "LISTENING"}))
 })
 
-//when you shitpost
-
 bot.on('message', message =>{
     
     //hi
@@ -151,11 +149,6 @@ bot.on('message', message =>{
         
     }
     
-    //don't look at this piece of code
-
-    if(msg.content == `${prefix} nuke the server`){
-        delete(69420)
-    }
-})
+}),
 
 bot.login(token);
