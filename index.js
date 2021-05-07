@@ -2,11 +2,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
 const prefix = 'hey siri';
-const token = 'UR BOTS TOKEN';
-
-//variables
-const Level = '0'
-const Xp = '1'
+const token = 'YOUR BOTS TOKEN HERE';
 
 //she alive poggers
 
@@ -14,6 +10,8 @@ bot.on('ready', () => {
     console.log(`siri logged in poggers`)
     bot.user.setActivity('the impostor', ({type: "LISTENING"}))
 })
+
+//commands
 
 bot.on('message', message =>{
     
@@ -149,6 +147,29 @@ bot.on('message', message =>{
         
     }
     
+    if(msg.content === `hello`){
+        msg.channel.send(`bye`)
+    }
+
+    if(msg.content === `shut up`){
+        msg.channel.send(`why would i?`)
+    }
+
+    if(msg.content === `fuck you siri`){
+
+        const NoUEmbed = new Discord.MessageEmbed()
+        .setTitle('no u')
+        .setDescription('no u')
+        .addField('no u', 'no u', true)
+        .setImage('https://cdn.discordapp.com/attachments/837737014778134550/840205733239717898/iu.png')
+
+        msg.channel.send(NoUEmbed)
+    }
+
+    if(msg.content === `${prefix} give me the github link`){
+        msg.channel.send(`https://github.com/iHsbutt/siri`)
+    }
+
 }),
 
 bot.login(token);
