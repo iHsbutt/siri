@@ -170,6 +170,17 @@ bot.on('message', message =>{
         msg.channel.send(`https://github.com/iHsbutt/siri`)
     }
 
+    //ping
+
+    if (message.mentions.users.has(bot.user.id) && !message.author.bot) {
+        console.log(`someone pinged siri`)
+        const GotPingedWTF = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('why did you ping me?')
+        .setDescription(`my prefix is ${prefix}.`)
+        msg.channel.send(GotPingedWTF)
+    }
+    
 }),
 
 bot.login(token);
