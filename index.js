@@ -4,6 +4,7 @@ const bot = new Discord.Client();
 const prefix = 'hey siri';
 const token = 'YOUR BOTS TOKEN HERE';
 
+
 //she alive poggers
 
 bot.on('ready', () => {
@@ -14,7 +15,17 @@ bot.on('ready', () => {
 //commands
 
 bot.on('message', message =>{
+
+    console.log(`${message.author.tag} said ${message.content}`)
     
+        if(message.author.bot) return; // do nothing
+        // if not responding to a bot, do bot stuff
+        const logs = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle(`${message.author.tag} with an id of ${message.author.id} sent`)
+        .setDescription(`${message.content}`)
+        bot.channels.cache.find(channel => channel.name === 'logs').send(logs); // for discord v12
+
     //hi
 
     let msg = message;
@@ -23,6 +34,8 @@ bot.on('message', message =>{
         console.log(`someone said hey siri`)
     }
 
+    //the
+    
     //test
 
     if(msg.content === `${prefix} test`){
@@ -52,7 +65,7 @@ bot.on('message', message =>{
         .setTitle('who am i and why did i use embeds')
         .addFields(
 	    { name: '\u200B', value: '\u200B' },
-	    { name: 'who is siri', value: 'a dumb bot made by iH', inline: true },
+	    { name: 'who is siri', value: 'a dumb bot made by iH and Puffercat', inline: true },
 	    { name: 'why did i use embeds', value: 'because i like fancy things', inline: true },
         );
         msg.channel.send(SiriWhoRU)
@@ -180,7 +193,40 @@ bot.on('message', message =>{
         .setDescription(`my prefix is ${prefix}.`)
         msg.channel.send(GotPingedWTF)
     }
-    
-}),
+
+        //random messages test
+
+        
+        
+
+        if(msg.content === `${prefix} help`){
+            console.log(`someone asked siri for help`)
+            const helpEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setTitle('Help Menu')
+            .addFields(
+                { name: 'hey siri help', value: 'Shows this menu.' },
+                { name: 'hey siri', value: 'Siri says hi to you.' },
+                { name: 'hey siri who are you', value: 'Siri says something about her.' },
+                { name: 'hey siri give me the link', value: 'Siri sends you link to invite her to your server.' },
+                { name: 'hey siri register', value: 'Send to access the server.' },
+                { name: 'hey siri are you a robot?', value: 'Siri proofs that she is not a robot.' },
+                { name: 'hey siri rules', value: 'Siri sends you list of rules on the server.' },
+                { name: 'hey siri give me the github link', value: 'Siri sends you link to her GitHub repo.' },
+            )
+            msg.channel.send(helpEmbed)
+        }
+            
+            module.exports = {
+                name: 'random',
+                description: 'random?',
+                execute(message, args){
+                    // Now the randomMessage will be recalculated every time the command is run
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    message.channel.send(randomMessage);
+                }
+            }
+        }
+),
 
 bot.login(token);
