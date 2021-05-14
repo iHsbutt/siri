@@ -3,38 +3,63 @@ const Discord = require('discord.js');
 const bot = new Discord.Client();
 const prefix = 'hey siri';
 const token = 'YOUR BOTS TOKEN HERE';
-
+let targetChannelId = 'logs842642624640188419';
 
 //she alive poggers
 
 bot.on('ready', () => {
     console.log(`siri logged in poggers`)
-    bot.user.setActivity('the impostor', ({type: "LISTENING"}))
+    bot.user.setActivity(`to ${bot.guilds.cache.size} servers`, ({type: "LISTENING"}))
 })
+
+//when it joins
+
+bot.on("guildCreate", guild => {
+    const channels = guild.channels.cache.filter(channel => channel.type == "text");
+
+    const helo = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle(`thank you for inviting me!`)
+        .setDescription(`we will need to do some setup first.`)
+        .addField(`fun with siri`, `say hey siri`, true)
+        .addField(`register and get a private channel`, `say ${prefix} register`, true)
+        .addField(`join a discord server with siri logs`, `say ${prefix} logs server`, true)
+        .addField(`we have more commands`, `say ${prefix} help`, true)
+
+    channels.first().send(helo).catch(e => console.log(e));
+});
 
 //commands
 
 bot.on('message', message =>{
 
+    //this MUST be on the top
+
+    let msg = message;
+    
     console.log(`${message.author.tag} said ${message.content}`)
     
         if(message.author.bot) return; // do nothing
         // if not responding to a bot, do bot stuff
         const logs = new Discord.MessageEmbed()
         .setColor('#0099ff')
-        .setTitle(`${message.author.tag} with an id of ${message.author.id} sent`)
+        .setTitle(`${message.author.tag} with an id of ${message.author.id} in channel ${message.channel.name} in server ${message.guild.name} sent`)
         .setDescription(`${message.content}`)
-        bot.channels.cache.find(channel => channel.name === 'logs').send(logs); // for discord v12
-
+        bot.channels.cache.find(channel => channel.name === targetChannelId).send(logs); // for discord v12
+    
     //hi
 
-    let msg = message;
+    
     if(msg.content === 'hey siri'){
         msg.channel.send(`hi ${message.author.username}`)
         console.log(`someone said hey siri`)
     }
 
     //the
+
+    if(msg.content === `${prefix} logs server`){
+        msg.channel.send(`https://discord.gg/qUzpTuAmeH`)
+    }
     
     //test
 
@@ -205,14 +230,15 @@ bot.on('message', message =>{
             .setColor('#0099ff')
             .setTitle('Help Menu')
             .addFields(
-                { name: 'hey siri help', value: 'Shows this menu.' },
-                { name: 'hey siri', value: 'Siri says hi to you.' },
-                { name: 'hey siri who are you', value: 'Siri says something about her.' },
-                { name: 'hey siri give me the link', value: 'Siri sends you link to invite her to your server.' },
-                { name: 'hey siri register', value: 'Send to access the server.' },
-                { name: 'hey siri are you a robot?', value: 'Siri proofs that she is not a robot.' },
-                { name: 'hey siri rules', value: 'Siri sends you list of rules on the server.' },
-                { name: 'hey siri give me the github link', value: 'Siri sends you link to her GitHub repo.' },
+                { name: `${prefix} help`, value: 'Shows this menu.' },
+                { name: `hey siri`, value: 'Siri says hi to you.' },
+                { name: `${prefix} who are you`, value: 'Siri says something about her.' },
+                { name: `${prefix} give me the link`, value: 'Siri sends you link to invite her to your server.' },
+                { name: `${prefix} register`, value: 'Send to access the server.' },
+                { name: `${prefix} are you a robot?`, value: 'Siri proofs that she is not a robot.' },
+                { name: `${prefix} rules`, value: 'Siri sends you list of rules on the server.' },
+                { name: `${prefix} give me the github link`, value: 'Siri sends you link to her GitHub repo.' },
+                { name: `${prefix} logs server`, value: 'Siri sends you link to her logging server.' },
             )
             msg.channel.send(helpEmbed)
         }
