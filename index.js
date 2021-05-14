@@ -1,15 +1,15 @@
 //constructors or whatever
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const prefix = 'hey siri';
-const token = 'YOUR BOTS TOKEN HERE';
-let targetChannelId = 'logs842642624640188419';
+const prefix = (require('./config.json').prefix)
+const logsChannel = (require('./config.json').prefix)
+const token = (require('./config.json').token)
 
 //she alive poggers
 
 bot.on('ready', () => {
     console.log(`siri logged in poggers`)
-    bot.user.setActivity(`to ${bot.guilds.cache.size} servers`, ({type: "LISTENING"}))
+    bot.user.setActivity(`to ${bot.guilds.cache.size - 1} servers`, ({type: "LISTENING"}))
 })
 
 //when it joins
@@ -45,10 +45,9 @@ bot.on('message', message =>{
         .setColor('#0099ff')
         .setTitle(`${message.author.tag} with an id of ${message.author.id} in channel ${message.channel.name} in server ${message.guild.name} sent`)
         .setDescription(`${message.content}`)
-        bot.channels.cache.find(channel => channel.name === targetChannelId).send(logs); // for discord v12
+        bot.channels.cache.find(channel => channel.name === logsChannel).send(logs); // for discord v12
     
     //hi
-
     
     if(msg.content === 'hey siri'){
         msg.channel.send(`hi ${message.author.username}`)
